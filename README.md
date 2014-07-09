@@ -1,7 +1,13 @@
-threads
+Threads
 =======
 
-Simple nodejs/angular discussion board.
+Simple nodejs/angular temporary discussion board with no persistence. All posts are deleted upon restart.
+
+Fetch dependencies:
+
+```
+npm install
+```
 
 Start:
 
@@ -9,7 +15,7 @@ Start:
 node threads.js
 ```
 
-Access via:
+Access:
 
 ```
 http://localhost:3000/
