@@ -1,0 +1,10 @@
+{
+  "name": "threads",
+  "description": "threads message board",
+  "version": "0.0.2",
+  "private": true,
+  "dependencies": {
+    "express": "4.2.x",
+    "body-parser": "1.2.x"
+  }
+}
