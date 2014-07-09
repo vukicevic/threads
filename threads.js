@@ -1,9 +1,9 @@
-var express = require("express");
-var app     = express();
-var port    = process.env.PORT || 3000;
-var parser  = require("body-parser");
-var crypto  = require("crypto");
-var salt;
+var express = require("express"),
+    app     = express(),
+    port    = process.env.PORT || 3000,
+    parser  = require("body-parser"),
+    crypto  = require("crypto"),
+    salt, router, store;
 
 crypto.randomBytes(10, function(err, buf) { salt = buf.toString("hex") });
 
@@ -51,8 +51,8 @@ function Post(ip, author, title, text, thread) {
   this.update = this.date;
 }
 
-var router  = express.Router();
-var store = Datastore();
+router = express.Router();
+store  = Datastore();
 
 router.route("/thread/:id/:offset?/:limit?")
 

@@ -1,25 +1,24 @@
 <div ng-repeat="post in posts | order" class="post">
-	<div class="details" style="background-color:#{{ post.colour }}">
-		<b ng-bind="post.author"></b> @ {{ post.date | date: "medium" }}
-	</div>
+  <div class="details" style="background-color:#{{ post.colour }}">
+    <b ng-bind="post.author"></b> @ {{ post.date | date: "medium" }}
+  </div>
 
-	<div class="title" ng-show="post.thread == 0 || post.id == post.thread">
-		<h3><a ng-href="#/thread/{{ post.id }}" ng-bind="post.title"></a> <small ng-hide="inThread">[{{ post.count }}]</small></h3>
-	</div>
+  <div class="title" ng-show="post.thread == 0 || post.id == post.thread">
+    <h3><a ng-href="#/thread/{{ post.id }}" ng-bind="post.title"></a> <small ng-hide="inThread">[{{ post.count }}]</small></h3>
+  </div>
 
-	<div class="text" ng-bind="post.text"></div>
+  <div class="text" ng-bind="post.text"></div>
 </div>
 
 <div ng-hide="posts.length">
-	<h1>Nothing Here Yet</h1>
+  <h1>Nothing Here Yet</h1>
 </div>
 
-
 <form id="post" ng-submit="addThread($parent.post)">
-	<input type="text" placeholder="Title" ng-model="$parent.post.title" ng-hide="inThread" ng-required="!inThread">
-	<textarea placeholder="Text" rows="5" ng-model="$parent.post.text" required></textarea>
-	<input type="text" placeholder="Author (optional)" ng-model="$parent.post.author">
-	<input type="submit" value="Post!">
+  <input type="text" placeholder="Title" ng-model="$parent.post.title" ng-hide="inThread" ng-required="!inThread">
+  <textarea placeholder="Text" rows="5" ng-model="$parent.post.text" required></textarea>
+  <input type="text" placeholder="Author (optional)" ng-model="$parent.post.author">
+  <input type="submit" value="Post!">
 </form>
 
 <h3 ng-show="inThread" style="margin-left:1em"><a ng-href="#/thread/0">&laquo;&nbsp;Back</a></h3>
