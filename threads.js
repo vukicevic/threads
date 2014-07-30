@@ -1,8 +1,9 @@
 var express = require("express"),
-    parser  = require("body-parser");
+    parser  = require("body-parser"),
     app     = express();
 
 app.use(parser.json());
+
 app.use("/api", require("./app/controller"));
 app.use(express.static(__dirname + "/static"));
 
