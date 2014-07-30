@@ -1,5 +1,5 @@
 var crypto = require("crypto"),
-	salt   = crypto.randomBytes(10).toString("hex");
+    salt   = crypto.randomBytes(10).toString("hex");
 
 function Post(ip, author, title, text, thread) {
   this.author = author || "Anonymous";
