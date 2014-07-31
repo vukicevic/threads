@@ -4,7 +4,7 @@ var express = require("express"),
 
 app.use(parser.json());
 
-app.use("/api", require("./app/controller"));
+app.use("/api", require(__dirname + "/app/controller"));
 app.use(express.static(__dirname + "/static"));
 
 app.listen(process.env.PORT || 3000);

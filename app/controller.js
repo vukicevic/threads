@@ -1,7 +1,7 @@
 var express = require("express"),
     router  = express.Router(),
-    store   = require("./datastore"),
-    Post    = require("./model");
+    store   = require(__dirname + "/datastore"),
+    Post    = require(__dirname + "/model");
 
 router.route("/thread/:id/:offset?/:limit?")
 
