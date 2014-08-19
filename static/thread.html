@@ -14,10 +14,12 @@
   <h1>Nothing Here Yet</h1>
 </div>
 
-<form id="post" ng-submit="addThread($parent.post)">
-  <input type="text" placeholder="Title" ng-model="$parent.post.title" ng-hide="inThread" ng-required="!inThread">
-  <textarea placeholder="Text" rows="5" ng-model="$parent.post.text" required></textarea>
-  <input type="text" placeholder="Author (optional)" ng-model="$parent.post.author">
+<form id="post" ng-submit="addThread()">
+  <input type="file" onchange="angular.element(this).scope().addFile(this.files)" accept="image/png,image/jpg,image/jpeg,image/gif">
+  <input type="hidden" ng-model="post.file" ng-init="post.file=''">
+  <input type="text" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
+  <textarea placeholder="Text" rows="5" ng-model="post.text" required></textarea>
+  <input type="text" placeholder="Author (optional)" ng-model="post.author">
   <input type="submit" value="Post!">
 </form>
 

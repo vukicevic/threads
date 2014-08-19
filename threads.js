@@ -2,7 +2,10 @@ var express = require("express"),
     parser  = require("body-parser"),
     app     = express();
 
-app.use(parser.json());
+global.datastore = require(__dirname + "/app/datastore");
+global.filestore = require(__dirname + "/app/filestore");
+
+app.use(parser.json({limit: "5mb"}));
 
 app.use("/api", require(__dirname + "/app/controller"));
 app.use(express.static(__dirname + "/static"));
