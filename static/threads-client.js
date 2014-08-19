@@ -9,7 +9,7 @@ threads.config(function($routeProvider) {
   });
 });
 
-threads.filter('order', function() {
+threads.filter("order", function() {
   return function(posts) { 
     if (posts.length > 1 && posts[1].thread === 0) {
       return posts.sort(function(a, b) { return new Date(b.update) - new Date(a.update) });
@@ -19,9 +19,9 @@ threads.filter('order', function() {
   };
 });
 
-threads.controller("ThreadController", function($http, $scope, $location, $routeParams, $interval) {
+threads.controller("ThreadController", function($http, $scope, $location, $routeParams) {
   $scope.addThread = function () {
-    $http.post(mount + $location.path(), $scope.post).success(function(data) {
+    $http.post("/api" + $location.path(), $scope.post).success(function(data) {
       if (data.id) {
         $scope.posts.push(data);
       }
@@ -33,31 +33,21 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
   }
 
   $scope.getThread = function() {
-    $http.get(mount + $location.path() + "/" + $scope.posts.length).success(function(data) {
+    $http.get("/api" + $location.path() + "/" + $scope.posts.length).success(function(data) {
       $scope.posts = $scope.posts.concat(data.thread);
     }).error(function(data) {
       console.log("Error");
     }); 
   }
 
-  $scope.addFile = function(files) {
-    var reader = new FileReader(),
-        file   = files[0];
-    
-    reader.addEventListener("load", function(e) { 
-      $scope.post.file = e.target.result;
-      document.getElementsByTagName("body")[0].style.backgroundImage = "url("+e.target.result+")";
-    });
-
+  $scope.addFile = function(file) {
     if (file && file.size < 5000000) {
+      var reader = new FileReader();
+    
+      reader.addEventListener("load", function(e) { $scope.post.file = e.target.result });
       reader.readAsDataURL(file);
     }
   }
-
-  var mount  = "/api",
-      update = $interval($scope.getThread, 5000);  
-
-  $scope.$on('$destroy', function () { $interval.cancel(update) });
 
   $scope.inThread = $routeParams.id > 0;
   $scope.posts    = [];

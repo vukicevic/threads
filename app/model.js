@@ -12,7 +12,7 @@ function Post(ip, author, title, text, thread, data) {
   this.update = this.date;
 
   this.colour = this.colourize(ip);
-  this.image  = global.filestore.upload(crypto.randomBytes(8).toString("hex"), data);
+  this.image  = global.filestore.upload(data);
 
 }
 

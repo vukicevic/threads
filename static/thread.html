@@ -1,21 +1,22 @@
+<div ng-hide="posts.length">
+  <h1>Nothing Here Yet</h1>
+</div>
+
 <div ng-repeat="post in posts | order" class="post">
   <div class="details" style="background-color:#{{ post.colour }}">
     <b ng-bind="post.author"></b> @ {{ post.date | date: "medium" }}
   </div>
 
-  <div class="title" ng-show="post.thread == 0 || post.id == post.thread">
+  <div class="title" ng-hide="post.thread">
     <h3><a ng-href="#/thread/{{ post.id }}" ng-bind="post.title"></a> <small ng-hide="inThread">[{{ post.count }}]</small></h3>
   </div>
 
   <div class="text" ng-bind="post.text"></div>
-</div>
-
-<div ng-hide="posts.length">
-  <h1>Nothing Here Yet</h1>
+  <img ng-show="post.image" ng-src="{{ post.image && 'upload/' + post.image }}">
 </div>
 
 <form id="post" ng-submit="addThread()">
-  <input type="file" onchange="angular.element(this).scope().addFile(this.files)" accept="image/png,image/jpg,image/jpeg,image/gif">
+  <input type="file" onchange="angular.element(this).scope().addFile(this.files[0])" accept="image/png,image/jpg,image/jpeg,image/gif">
   <input type="hidden" ng-model="post.file" ng-init="post.file=''">
   <input type="text" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
   <textarea placeholder="Text" rows="5" ng-model="post.text" required></textarea>
