@@ -1,32 +1,30 @@
 function Datastore() {
-  var vault = [];
+  this.vault = [];
+}
 
-  return {
-    update: function(id) {
-      var post = vault[id-1];
+Datastore.prototype.update = function(id) {
+  var post = this.vault[id-1];
       
-      if (post) {
-        post.update = new Date();
-        post.count++;
-      }
-    },
-
-    get: function(id, offset, limit) {
-      id     = parseInt(id) || 0;
-      offset = parseInt(offset) || 0;
-      limit  = parseInt(limit) + offset || undefined;
-
-      return vault.filter(function(p) { return p.id === id || p.thread === id }).slice(offset, limit);
-    },
-
-    set: function(post) {
-      if (post.thread <= vault.length) {
-        post.id = vault.push(post);
-      }
-
-      return post;
-    }
+  if (post) {
+    post.update = new Date();
+    post.count++;
   }
 }
 
-module.exports = Datastore();
+Datastore.prototype.get = function(id, offset, limit) {
+  id     = parseInt(id) || 0;
+  offset = parseInt(offset) || 0;
+  limit  = parseInt(limit) + offset || undefined;
+
+  return this.vault.filter(function(p) { return p.id === id || p.thread === id }).slice(offset, limit);
+}
+
+Datastore.prototype.set = function(post) {
+  if (post.thread <= this.vault.length) {
+    post.id = this.vault.push(post);
+  }
+
+  return post;
+}
+
+module.exports = new Datastore();

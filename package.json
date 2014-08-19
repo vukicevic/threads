@@ -1,7 +1,7 @@
 {
   "name": "Threads",
   "description": "Threads is an anonymous, non-persistent, simple message board.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "express": "latest",
