@@ -5,7 +5,7 @@ router.route("/thread/:id/:offset?/:limit?")
 
   .post(function(req, res) {
     if (req.body.text) {
-      res.status(201).json(global.datastore.set(new Post(req.ip, req.body.author, req.body.title, req.body.text, parseInt(req.params.id), req.body.file))).end();
+      res.status(201).json(global.datastore.set(new Post(parseInt(req.params.id), req.body.title, req.body.text, req.body.author, req.body.secret, req.body.file))).end();
       global.datastore.update(parseInt(req.params.id));
     } else {
       res.status(400).end();

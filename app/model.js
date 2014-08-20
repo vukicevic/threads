@@ -1,12 +1,11 @@
-var crypto    = require("crypto"),
-    salt      = crypto.randomBytes(10).toString("hex");
+var crypto = require("crypto"),
+    salt   = "abcTestSalt1234";
 
-function colourize(ip) {
-  return crypto.createHash("sha1").update(salt + this.author + ip.split(".").pop()).digest("hex").substring(34);
+function colourize(author, secret) {
+  return crypto.createHash("sha1").update(salt + author + secret).digest("hex").substring(34);
 }
 
-function Post(ip, author, title, text, thread, data) {
-  this.author = author || "Anonymous";
+function Post(thread, title, text, author, secret, file) {
   this.title  = title;
   this.text   = text;
 
@@ -15,9 +14,10 @@ function Post(ip, author, title, text, thread, data) {
   this.date   = new Date();
   this.update = Date.now();
 
-  this.colour = colourize(ip);
-  this.image  = global.filestore.upload(data);
+  this.author = author || "Anonymous";
 
+  this.colour = colourize(author, secret);
+  this.image  = global.filestore.upload(file);
 }
 
 module.exports = Post;

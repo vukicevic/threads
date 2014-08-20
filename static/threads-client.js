@@ -26,7 +26,7 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
         $scope.posts.push(data);
       }
 
-      $scope.post.title = $scope.post.author = $scope.post.text = $scope.post.image = "";
+      $scope.post.title = $scope.post.text = $scope.post.file = "";
     }).error(function(data) {
       console.log("Bad Request");
     });

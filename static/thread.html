@@ -20,7 +20,8 @@
   <input type="hidden" ng-model="post.file" ng-init="post.file=''">
   <input type="text" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
   <textarea placeholder="Text" rows="5" ng-model="post.text" required></textarea>
-  <input type="text" placeholder="Author (optional)" ng-model="post.author">
+  <input type="password" placeholder="Secret" ng-model="post.secret" id="secret" ng-required="post.author">
+  <input type="text" placeholder="Author (optional)" ng-model="post.author" id="author">
   <input type="submit" value="Post!">
 </form>
 
