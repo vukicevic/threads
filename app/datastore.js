@@ -1,12 +1,12 @@
-function Datastore() {
-  this.vault = [];
+function Datastore(data) {
+  this.vault = data ? JSON.parse(data) : [];
 }
 
 Datastore.prototype.update = function(id) {
   var post = this.vault[id-1];
       
   if (post) {
-    post.update = new Date();
+    post.update = Date.now();
     post.count++;
   }
 }
@@ -27,4 +27,8 @@ Datastore.prototype.set = function(post) {
   return post;
 }
 
-module.exports = new Datastore();
+Datastore.prototype.export = function() {
+  return JSON.stringify(this.vault);
+}
+
+module.exports = Datastore;

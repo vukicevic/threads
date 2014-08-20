@@ -12,7 +12,7 @@ threads.config(function($routeProvider) {
 threads.filter("order", function() {
   return function(posts) { 
     if (posts.length > 1 && posts[1].thread === 0) {
-      return posts.sort(function(a, b) { return new Date(b.update) - new Date(a.update) });
+      return posts.sort(function(a, b) { return b.update - a.update });
     }
 
     return posts;
