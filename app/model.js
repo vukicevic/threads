@@ -1,5 +1,5 @@
 var crypto = require("crypto"),
-    salt   = "abcTestSalt1234";
+    salt   = "ThisIsWhereTheSaltShouldBeDefined123";
 
 function colourize(author, secret) {
   return crypto.createHash("sha1").update(salt + author + secret).digest("hex").substring(34);
@@ -14,9 +14,14 @@ function Post(thread, title, text, author, secret, file) {
   this.date   = new Date();
   this.update = Date.now();
 
-  this.author = author || "Anonymous";
+  if (author) {
+    this.author = author;
+    this.colour = colourize(author, secret);
+  } else {
+    this.author = "Anonymous";
+    this.colour = "fff";
+  }
 
-  this.colour = colourize(author, secret);
   this.image  = global.filestore.upload(file);
 }
 

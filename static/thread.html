@@ -2,8 +2,8 @@
   <h1>Nothing Here Yet</h1>
 </div>
 
-<div ng-repeat="post in posts | order" class="post">
-  <div class="details" style="background-color:#{{ post.colour }}">
+<div ng-repeat="post in posts | order" class="post" ng-style="border-right: 5px solid #{{ post.colour }}">
+  <div class="details">
     <b ng-bind="post.author"></b> @ {{ post.date | date: "medium" }}
   </div>
 
@@ -16,13 +16,13 @@
 </div>
 
 <form id="post" ng-submit="addThread()">
-  <input type="file" onchange="angular.element(this).scope().addFile(this.files[0])" accept="image/png,image/jpg,image/jpeg,image/gif">
+  <input type="file" tabindex="1" onchange="angular.element(this).scope().addFile(this.files[0])" accept="image/png,image/jpg,image/jpeg,image/gif">
   <input type="hidden" ng-model="post.file" ng-init="post.file=''">
-  <input type="text" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
-  <textarea placeholder="Text" rows="5" ng-model="post.text" required></textarea>
-  <input type="password" placeholder="Secret" ng-model="post.secret" id="secret" ng-required="post.author">
-  <input type="text" placeholder="Author (optional)" ng-model="post.author" id="author">
-  <input type="submit" value="Post!">
+  <input type="text" tabindex="2" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
+  <textarea tabindex="3" placeholder="Text" rows="5" ng-model="post.text" required></textarea>
+  <input type="password" tabindex="5" placeholder="Secret" ng-model="post.secret" id="secret" ng-required="post.author">
+  <input type="text" tabindex="4" placeholder="Author (optional)" ng-model="post.author" id="author">
+  <input type="submit" tabindex="6" value="Post!">
 </form>
 
 <h3 ng-show="inThread" style="margin-left:1em"><a ng-href="#/thread/0">&laquo;&nbsp;Back</a></h3>

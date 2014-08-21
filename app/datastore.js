@@ -11,6 +11,10 @@ Datastore.prototype.update = function(id) {
   }
 }
 
+Datastore.prototype.remove = function(id) {
+  this.vault.splice(id-1, 1);
+}
+
 Datastore.prototype.get = function(id, offset, limit) {
   id     = parseInt(id) || 0;
   offset = parseInt(offset) || 0;
