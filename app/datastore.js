@@ -26,6 +26,8 @@ Datastore.prototype.get = function(id, offset, limit) {
 Datastore.prototype.set = function(post) {
   if (post.thread <= this.vault.length) {
     post.id = this.vault.push(post);
+
+    this.update(post.thread);
   }
 
   return post;
