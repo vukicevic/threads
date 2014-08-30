@@ -1,7 +1,7 @@
 var threads = angular.module("threads", ["ngRoute", "ngAnimate"]);
 
 threads.config(function($routeProvider) {
-  $routeProvider.when("/thread/:id?/:lower?/:upper?", {
+  $routeProvider.when("/thread/:id", {
     templateUrl: "thread.html", controller: "ThreadController"
   })
   .otherwise({
@@ -33,7 +33,7 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
   }
 
   $scope.getThread = function() {
-    $http.get("/api" + $location.path() + "/" + $scope.posts.length).success(function(data) {
+    $http.get("/api" + $location.path()).success(function(data) {
       $scope.posts = $scope.posts.concat(data.thread);
     }).error(function(data) {
       console.log("Error");

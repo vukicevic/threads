@@ -1,7 +1,7 @@
 var fs = require("fs");
 
-function Datastore(id) {
-  this.id = id;
+function Datastore(name) {
+  this.name = name;
   this.import();
 }
 
@@ -18,12 +18,10 @@ Datastore.prototype.remove = function(id) {
   this.vault.splice(id-1, 1);
 }
 
-Datastore.prototype.get = function(id, offset, limit) {
-  id     = parseInt(id) || 0;
-  offset = parseInt(offset) || 0;
-  limit  = parseInt(limit) + offset || undefined;
+Datastore.prototype.get = function(id) {
+  id = parseInt(id) || 0;
 
-  return this.vault.filter(function(p) { return p.id === id || p.thread === id }).slice(offset, limit);
+  return this.vault.filter(function(p) { return p.id === id || p.thread === id });
 }
 
 Datastore.prototype.set = function(post) {
@@ -37,12 +35,12 @@ Datastore.prototype.set = function(post) {
 }
 
 Datastore.prototype.export = function() {
-  fs.writeFileSync("filestore/" + this.id + ".json", JSON.stringify(this.vault));
+  fs.writeFileSync("filestore/" + this.name + ".json", JSON.stringify(this.vault));
 }
 
 Datastore.prototype.import = function() {
   try {
-    this.vault = JSON.parse(fs.readFileSync("filestore/" + this.id + ".json", "utf-8"));
+    this.vault = JSON.parse(fs.readFileSync("filestore/" + this.name + ".json", "utf-8"));
   } catch (e) {
     this.vault = [];
   }

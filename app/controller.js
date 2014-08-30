@@ -1,7 +1,7 @@
 var router = require("express").Router(),
     Post   = require(__dirname + "/model");
 
-router.route("/thread/:id/:offset?/:limit?")
+router.route("/thread/:id")
 
   .post(function(req, res) {
     if (req.body.text) {
@@ -14,7 +14,7 @@ router.route("/thread/:id/:offset?/:limit?")
 
   .get(function(req, res) {
     res.status(200).json({ 
-      "thread": global.datastore.get(req.params.id, req.params.offset, req.params.limit)
+      "thread": global.datastore.get(req.params.id)
     }).end();
   })
 
