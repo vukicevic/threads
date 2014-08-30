@@ -1,5 +1,8 @@
-function Datastore(data) {
-  this.vault = data ? JSON.parse(data) : [];
+var fs = require("fs");
+
+function Datastore(id) {
+  this.id = id;
+  this.import();
 }
 
 Datastore.prototype.update = function(id) {
@@ -34,7 +37,15 @@ Datastore.prototype.set = function(post) {
 }
 
 Datastore.prototype.export = function() {
-  return JSON.stringify(this.vault);
+  fs.writeFileSync("filestore/" + this.id + ".json", JSON.stringify(this.vault));
+}
+
+Datastore.prototype.import = function() {
+  try {
+    this.vault = JSON.parse(fs.readFileSync("filestore/" + this.id + ".json", "utf-8"));
+  } catch (e) {
+    this.vault = [];
+  }
 }
 
 module.exports = Datastore;
