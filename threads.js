@@ -1,18 +1,18 @@
-var express = require("express"),
-    parser  = require("body-parser"),
-    fstore 	= require(__dirname + "/app/filestore"),
-    dstore 	= require(__dirname + "/app/datastore"),
-    app     = express();
+var express   = require("express"),
+    parser    = require("body-parser"),
+    Filestore = require(__dirname + "/app/filestore"),
+    Datastore = require(__dirname + "/app/datastore"),
+    threads   = express();
 
-global.filestore = new fstore();
-global.datastore = new dstore(global.filestore.load());
+global.filestore = new Filestore();
+global.datastore = new Datastore(global.filestore.load());
 
-app.use(parser.json({limit: "5mb"}));
+threads.use(parser.json());
 
-app.use("/api", require(__dirname + "/app/controller"));
-app.use(express.static(__dirname + "/static"));
+threads.use("/api", require(__dirname + "/app/controller"));
+threads.use(express.static(__dirname + "/static"));
 
-app.listen(process.env.PORT || 3000);
+threads.listen(process.env.PORT || 3000);
 
 /* HANDLE EXIT */
 process.stdin.resume();
