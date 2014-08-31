@@ -1,7 +1,7 @@
 var router = require("express").Router(),
     Post   = require(__dirname + "/model");
 
-router.route("/thread/:id")
+router.route("/thread/:id?")
 
   .post(function(req, res) {
     if (req.body.text) {

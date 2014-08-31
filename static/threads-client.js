@@ -1,11 +1,11 @@
 var threads = angular.module("threads", ["ngRoute", "ngAnimate"]);
 
 threads.config(function($routeProvider) {
-  $routeProvider.when("/thread/:id", {
+  $routeProvider.when("/thread/:id?", {
     templateUrl: "thread.html", controller: "ThreadController"
   })
   .otherwise({
-    redirectTo: "/thread/0"
+    redirectTo: "/thread"
   });
 });
 
@@ -26,7 +26,7 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
         $scope.posts.push(data);
       }
 
-      $scope.post.title = $scope.post.text = $scope.post.file = "";
+      $scope.post.title = $scope.post.text = "";
     }).error(function(data) {
       console.log("Bad Request");
     });
