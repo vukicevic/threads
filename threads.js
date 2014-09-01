@@ -12,9 +12,9 @@ threads.use(express.static(__dirname + "/static"));
 
 threads.listen(process.env.PORT || 3000);
 
-/* HANDLE EXIT */
+/* HANDLE EXIT 
 process.stdin.resume();
 process.on('SIGINT', function () {
   global.datastore.export();
   process.exit();
-});
+}); */

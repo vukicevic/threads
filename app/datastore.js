@@ -1,9 +1,10 @@
 var fs = require("fs");
 
 function Datastore(name) {
-  this.name = name;
-  this.path = "static/upload/" + name;
-  this.import();
+  this.name  = name;
+  this.path  = "static/upload/" + name;
+  this.vault = [];
+  //this.import();
 
   if (fs.existsSync(this.path)) {
     fs.readdirSync(this.path).forEach(function(filename) { fs.unlink(this.path + "/" + filename) }, this);
