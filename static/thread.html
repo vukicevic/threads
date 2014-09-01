@@ -12,12 +12,14 @@
   </div>
 
   <div class="text" ng-bind="post.text" ng-show="inThread"></div>
+  <img ng-show="inThread && post.image" ng-src="{{ post.image && 'upload/threads/' + post.image }}">
 </div>
 
 <form id="post" ng-submit="addThread()">
+  <input type="file" tabindex="1" upload="post.file" accept="image/png,image/jpg,image/jpeg,image/gif" id="file">
   <input type="text" tabindex="2" placeholder="Title" ng-model="post.title" ng-hide="inThread" ng-required="!inThread">
   <textarea tabindex="3" placeholder="Text" rows="5" ng-model="post.text" required></textarea>
-  <input type="password" tabindex="5" placeholder="Secret" ng-model="post.secret" id="secret" ng-required="post.author">
+  <input type="password" tabindex="5" placeholder="Secret" ng-model="post.secret" ng-required="post.author" id="secret">
   <input type="text" tabindex="4" placeholder="Author (optional)" ng-model="post.author" id="author">
   <input type="submit" tabindex="6" value="Post!">
 </form>

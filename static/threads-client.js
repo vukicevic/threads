@@ -19,6 +19,28 @@ threads.filter("order", function() {
   };
 });
 
+threads.directive("upload", [function () {
+  return {
+    restrict: "A",
+    scope: { upload: "=" },
+    link: function (scope, element, attributes) {
+      element.bind("change", function (changeEvent) {
+        var file = changeEvent.target.files[0];
+        
+        if (file && file.size < 5000000) {
+          var reader = new FileReader();
+          
+          reader.addEventListener("load", function (loadEvent) {
+            scope.$apply(function () { scope.upload = loadEvent.target.result });
+          });
+
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  }
+}]);
+
 threads.controller("ThreadController", function($http, $scope, $location, $routeParams) {
   $scope.addThread = function () {
     $http.post("/api" + $location.path(), $scope.post).success(function(data) {
@@ -26,7 +48,8 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
         $scope.posts.push(data);
       }
 
-      $scope.post.title = $scope.post.text = "";
+      $scope.post.title = $scope.post.text = $scope.post.file = "";
+      angular.element(document.querySelector("#file")).val(null);
     }).error(function(data) {
       console.log("Bad Request");
     });
@@ -36,17 +59,8 @@ threads.controller("ThreadController", function($http, $scope, $location, $route
     $http.get("/api" + $location.path()).success(function(data) {
       $scope.posts = $scope.posts.concat(data.thread);
     }).error(function(data) {
-      console.log("Error");
+      console.log("Error Retrieving Thread");
     }); 
-  }
-
-  $scope.addFile = function(file) {
-    if (file && file.size < 5000000) {
-      var reader = new FileReader();
-    
-      reader.addEventListener("load", function(e) { $scope.post.file = e.target.result });
-      reader.readAsDataURL(file);
-    }
   }
 
   $scope.inThread = $routeParams.id > 0;

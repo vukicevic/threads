@@ -5,7 +5,7 @@ router.route("/thread/:id?")
 
   .post(function(req, res) {
     if (req.body.text) {
-      var post = global.datastore.set(new Post(parseInt(req.params.id), req.body.title, req.body.text, req.body.author, req.body.secret));
+      var post = global.datastore.set(new Post(parseInt(req.params.id), req.body.title, req.body.text, req.body.author, req.body.secret, req.body.file));
       res.status(201).json(post).end();
     } else {
       res.status(400).end();

@@ -5,7 +5,7 @@ function colourize(author, secret) {
   return crypto.createHash("sha1").update(salt + author + secret).digest("hex").substring(34);
 }
 
-function Post(thread, title, text, author, secret) {
+function Post(thread, title, text, author, secret, file) {
   this.title  = title;
   this.text   = text;
 
@@ -21,6 +21,8 @@ function Post(thread, title, text, author, secret) {
     this.author = "Anonymous";
     this.colour = "fff";
   }
+
+  this.image = file;
 }
 
 module.exports = Post;

@@ -5,7 +5,7 @@ var express   = require("express"),
 
 global.datastore = new Datastore("threads");
 
-threads.use(parser.json());
+threads.use(parser.json({limit: "5mb"}));
 
 threads.use("/api", require(__dirname + "/app/controller"));
 threads.use(express.static(__dirname + "/static"));
