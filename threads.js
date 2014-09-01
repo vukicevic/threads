@@ -1,11 +1,14 @@
 var express   = require("express"),
     parser    = require("body-parser"),
+    morgan    = require("morgan"),
     Datastore = require(__dirname + "/app/datastore"),
     threads   = express();
 
 global.datastore = new Datastore("threads");
 
 threads.use(parser.json({limit: "5mb"}));
+
+threads.use(morgan('dev'));
 
 threads.use("/api", require(__dirname + "/app/controller"));
 threads.use(express.static(__dirname + "/static"));
