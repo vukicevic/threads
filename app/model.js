@@ -5,8 +5,7 @@ function colourize(author, secret) {
   return crypto.createHash("sha1").update(salt + author + secret).digest("hex").substring(34);
 }
 
-function Post(thread, title, text, author, secret, file) {
-  this.title  = title;
+function Post(thread, text, author, secret, file) {
   this.text   = text;
 
   this.thread = thread || 0;
