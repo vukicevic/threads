@@ -3,6 +3,9 @@
   "description": "Threads is an anonymous, non-persistent, simple message board.",
   "version": "0.1.1",
   "private": true,
+  "scripts": {
+  	"start": "node threads.js"
+  },
   "dependencies": {
     "express": "latest",
     "body-parser": "latest"
