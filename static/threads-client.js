@@ -1,6 +1,6 @@
 var threads = angular.module("threads", ["ngRoute", "ngAnimate"]);
 
-threads.config(function($routeProvider) {
+threads.config(function ($routeProvider) {
   $routeProvider.when("/thread/:id?/:lower?/:upper?", {
     templateUrl: "thread.html", controller: "ThreadController"
   })
@@ -9,39 +9,39 @@ threads.config(function($routeProvider) {
   });
 });
 
-threads.filter('order', function() {
-  return function(posts) { 
+threads.filter('order', function () {
+  return function (posts) {
     if (posts.length > 1 && posts[1].thread === 0) {
-      return posts.sort(function(a, b) { return new Date(b.update) - new Date(a.update) });
+      return posts.sort(function (a, b) { return new Date(b.update) - new Date(a.update) });
     }
 
     return posts;
   };
 });
 
-threads.controller("ThreadController", function($http, $scope, $location, $routeParams, $interval) {
+threads.controller("ThreadController", function ($http, $scope, $location, $routeParams, $interval) {
   $scope.addThread = function (post) {
-    $http.post(mount + $location.path(), post).success(function(data) {
-      if (data.id) {
-        $scope.posts.push(data);
+    $http.post(mount + $location.path(), post).then(function (response) {
+      if (response.data.id) {
+        $scope.posts.push(response.data);
       }
 
-      $scope.post.title = $scope.post.author = $scope.post.text = $scope.post.image = "";
-    }).error(function(data) {
+      $scope.post.title = $scope.post.text = $scope.post.image = "";
+    }, function (response) {
       console.log("Bad Request");
     });
   }
 
-  $scope.getThread = function() {
-    $http.get(mount + $location.path() + "/" + $scope.posts.length).success(function(data) {
-      $scope.posts = $scope.posts.concat(data.thread);
-    }).error(function(data) {
+  $scope.getThread = function () {
+    $http.get(mount + $location.path() + "/" + $scope.posts.length).then(function (response) {
+      $scope.posts = $scope.posts.concat(response.data.thread);
+    }, function (response) {
       console.log("Error");
-    }); 
+    });
   }
 
-  var mount = "/api",
-      update = $interval($scope.getThread, 5000);
+  var mount = "/api";
+  var update = $interval($scope.getThread, 5000);
 
   $scope.$on('$destroy', function () { $interval.cancel(update) });
 

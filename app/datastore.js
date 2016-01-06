@@ -4,7 +4,7 @@ function Datastore() {
 
 Datastore.prototype.update = function(id) {
   var post = this.vault[id-1];
-      
+
   if (post) {
     post.update = new Date();
     post.count++;

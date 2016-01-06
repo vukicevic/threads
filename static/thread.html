@@ -1,6 +1,6 @@
 <div ng-repeat="post in posts | order" class="post">
   <div class="details" style="background-color:#{{ post.colour }}">
-    <b ng-bind="post.author"></b> @ {{ post.date | date: "medium" }}
+    {{ post.date | date: "medium" }}
   </div>
 
   <div class="title" ng-show="post.thread == 0 || post.id == post.thread">
@@ -17,7 +17,6 @@
 <form id="post" ng-submit="addThread($parent.post)">
   <input type="text" placeholder="Title" ng-model="$parent.post.title" ng-hide="inThread" ng-required="!inThread">
   <textarea placeholder="Text" rows="5" ng-model="$parent.post.text" required></textarea>
-  <input type="text" placeholder="Author (optional)" ng-model="$parent.post.author">
   <input type="submit" value="Post!">
 </form>
 
